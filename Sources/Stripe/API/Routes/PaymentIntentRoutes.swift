@@ -48,6 +48,7 @@ public protocol PaymentIntentsRoutes {
                 shipping: [String: Any]?,
                 source: String?,
                 statementDescriptor: String?,
+                statementDescriptorSuffix: String?,
                 transferData: [String: Any]?,
                 transferGroup: String?) throws -> Future<PaymentIntent>
 
@@ -153,6 +154,7 @@ extension PaymentIntentsRoutes {
                        shipping: [String: Any]? = nil,
                        source: String? = nil,
                        statementDescriptor: String? = nil,
+                       statementDescriptorSuffix: String? = nil,
                        transferData: [String: Any]? = nil,
                        transferGroup: String? = nil) throws -> Future<PaymentIntent> {
         return try create(amount: amount,
@@ -172,6 +174,7 @@ extension PaymentIntentsRoutes {
                           shipping: shipping,
                           source: source,
                           statementDescriptor: statementDescriptor,
+                          statementDescriptorSuffix: statementDescriptorSuffix,
                           transferData: transferData,
                           transferGroup: transferGroup)
     }

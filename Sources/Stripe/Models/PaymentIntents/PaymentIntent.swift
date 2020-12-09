@@ -77,6 +77,7 @@ public struct PaymentIntent: StripeModel {
     /// Extra information about a PaymentIntent. This will appear on your customer’s statement when this PaymentIntent succeeds in creating a charge.
     public var statementDescriptor: String?
     /// Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`.
+    public var statementDescriptorSuffix: String?
     public var status: PaymentIntentStatus?
     /// The data with which to automatically create a Transfer when the payment is finalized. See the PaymentIntents Connect usage guide for details.
     public var transferData: [String: String]?
@@ -115,6 +116,7 @@ public struct PaymentIntent: StripeModel {
         case shipping
         case source
         case statementDescriptor = "statement_descriptor"
+        case statementDescriptorSuffix = "statement_descriptor_suffix"
         case status
         case transferData = "transfer_data"
         case transferGroup = "transfer_group"
