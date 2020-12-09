@@ -268,6 +268,7 @@ public struct StripePaymentIntentsRoutes: PaymentIntentsRoutes {
                        shipping: [String: Any]?,
                        source: String?,
                        statementDescriptor: String?,
+                       statementDescriptorSuffix: String?,
                        transferData: [String: Any]?,
                        transferGroup: String?) throws -> Future<PaymentIntent> {
         var body: [String: Any] = ["amount": amount,
@@ -333,6 +334,10 @@ public struct StripePaymentIntentsRoutes: PaymentIntentsRoutes {
             body["statement_descriptor"] = statementDescriptor
         }
 
+        if let statementDescriptorSuffix = statementDescriptorSuffix {
+            body["statement_descriptor_suffix"] = statementDescriptorSuffix
+        }
+        
         if let transferData = transferData {
             transferData.forEach { body["transfer_data[\($0)]"] = $1 }
         }
