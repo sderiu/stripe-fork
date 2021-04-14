@@ -49,6 +49,7 @@ public protocol PaymentIntentsRoutes {
                 source: String?,
                 statementDescriptor: String?,
                 statementDescriptorSuffix: String?,
+                setupFutureUsage: String?,
                 transferData: [String: Any]?,
                 transferGroup: String?) throws -> Future<PaymentIntent>
 
@@ -155,6 +156,7 @@ extension PaymentIntentsRoutes {
                        source: String? = nil,
                        statementDescriptor: String? = nil,
                        statementDescriptorSuffix: String? = nil,
+                       setupFutureUsage: String? = nil,
                        transferData: [String: Any]? = nil,
                        transferGroup: String? = nil) throws -> Future<PaymentIntent> {
         return try create(amount: amount,
@@ -175,6 +177,7 @@ extension PaymentIntentsRoutes {
                           source: source,
                           statementDescriptor: statementDescriptor,
                           statementDescriptorSuffix: statementDescriptorSuffix,
+                          setupFutureUsage: setupFutureUsage,
                           transferData: transferData,
                           transferGroup: transferGroup)
     }
@@ -269,6 +272,7 @@ public struct StripePaymentIntentsRoutes: PaymentIntentsRoutes {
                        source: String?,
                        statementDescriptor: String?,
                        statementDescriptorSuffix: String?,
+                       setupFutureUsage: String?,
                        transferData: [String: Any]?,
                        transferGroup: String?) throws -> Future<PaymentIntent> {
         var body: [String: Any] = ["amount": amount,
@@ -336,6 +340,10 @@ public struct StripePaymentIntentsRoutes: PaymentIntentsRoutes {
 
         if let statementDescriptorSuffix = statementDescriptorSuffix {
             body["statement_descriptor_suffix"] = statementDescriptorSuffix
+        }
+        
+        if let setupFutureUsage = setupFutureUsage {
+            body["setup_future_usage"] = setupFutureUsage
         }
         
         if let transferData = transferData {
