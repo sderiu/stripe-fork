@@ -25,6 +25,7 @@ public enum StripeSubscriptionStatus: String, Codable {
     case pastDue = "past_due"
     case canceled
     case unpaid
+    case incomplete
 }
 
 // https://stripe.com/docs/api/invoices/object#invoice_object-status
