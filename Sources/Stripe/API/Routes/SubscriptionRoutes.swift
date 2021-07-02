@@ -10,7 +10,7 @@ import Vapor
 import Foundation
 
 public protocol SubscriptionRoutes {
-    func create(customer: String, applicationFeePercent: Decimal?, billing: String?, billingCycleAnchor: Date?, cancelAtPeriodEnd: Bool?, coupon: String?, daysUntilDue: Int?, items: [[String : Any]]?, metadata: [String: String]?, prorate: Bool?, taxPercent: Decimal?, trialEnd: Any?, trialFromPlan: Bool?, trialPeriodDays: Int?) throws -> Future<StripeSubscription>
+    func create(customer: String, applicationFeePercent: Decimal?, billing: String?, billingCycleAnchor: Date?, cancelAtPeriodEnd: Bool?, coupon: String?, daysUntilDue: Int?, items: [[String : Any]]?, metadata: [String: String]?, prorate: Bool?, taxPercent: Decimal?, trialEnd: Any?, trialFromPlan: Bool?, trialPeriodDays: Int?, off_session: Bool?) throws -> Future<StripeSubscription>
     func retrieve(id: String) throws -> Future<StripeSubscription>
     func update(subscription: String, applicationFeePercent: Decimal?, billing: String?, billingCycleAnchor: String?, cancelAtPeriodEnd: Bool?, coupon: String?, daysUntilDue: Int?, items: [[String: Any]]?, metadata: [String: String]?, prorate: Bool?, prorationDate: Date?, taxPercent: Decimal?, trialEnd: Any?, trialFromPlan: Bool?) throws -> Future<StripeSubscription>
     func cancel(subscription: String, invoiceNow: Bool?, prorate: Bool?) throws -> Future<StripeSubscription>
@@ -34,7 +34,8 @@ extension SubscriptionRoutes {
                        taxPercent: Decimal? = nil,
                        trialEnd: Any? = nil,
                        trialFromPlan: Bool? = nil,
-                       trialPeriodDays: Int? = nil) throws -> Future<StripeSubscription> {
+                       trialPeriodDays: Int? = nil,
+                       off_session: Bool? = false) throws -> Future<StripeSubscription> {
         return try create(customer: customer,
                           applicationFeePercent: applicationFeePercent,
                           billing: billing,
@@ -48,7 +49,8 @@ extension SubscriptionRoutes {
                           taxPercent: taxPercent,
                           trialEnd: trialEnd,
                           trialFromPlan: trialFromPlan,
-                          trialPeriodDays: trialPeriodDays)
+                          trialPeriodDays: trialPeriodDays,
+                          off_session: off_session)
     }
     
     public func retrieve(id: String) throws -> Future<StripeSubscription> {
@@ -120,7 +122,8 @@ public struct StripeSubscriptionRoutes: SubscriptionRoutes {
                        taxPercent: Decimal?,
                        trialEnd: Any?,
                        trialFromPlan: Bool?,
-                       trialPeriodDays: Int?) throws -> Future<StripeSubscription> {
+                       trialPeriodDays: Int?,
+                       off_session: Bool?) throws -> Future<StripeSubscription> {
         var body: [String: Any] = [:]
         
         body["customer"] = customer
@@ -181,6 +184,10 @@ public struct StripeSubscriptionRoutes: SubscriptionRoutes {
         
         if let trialPeriodDays = trialPeriodDays {
             body["trial_period_days"] = trialPeriodDays
+        }
+        
+        if let off_session = off_session {
+            body["off_session"] = off_session
         }
         
         return try request.send(method: .POST, path: StripeAPIEndpoint.subscription.endpoint, body: body.queryParameters)
