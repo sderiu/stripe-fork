@@ -38,6 +38,7 @@ public struct StripeSubscription: StripeModel {
     public var taxPercent: Decimal?
     public var trialEnd: Date?
     public var trialStart: Date?
+    public var latestInvoice: String?
     
     public enum CodingKeys: String, CodingKey {
         case id
@@ -64,5 +65,6 @@ public struct StripeSubscription: StripeModel {
         case taxPercent = "tax_percent"
         case trialEnd = "trial_end"
         case trialStart = "trial_start"
+        case latestInvoice = "latest_invoice"
     }
 }

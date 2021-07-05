@@ -58,6 +58,7 @@ public struct StripeInvoice: StripeModel {
     public var tax: Int?
     public var taxPercent: Decimal?
     public var webhooksDeliveredAt: Date?
+    public var paymentIntent: String?
     
     public enum CodingKeys: String, CodingKey {
         case id
@@ -104,5 +105,6 @@ public struct StripeInvoice: StripeModel {
         case tax
         case taxPercent = "tax_percent"
         case webhooksDeliveredAt = "webhooks_delivered_at"
+        case paymentIntent = "payment_intent"
     }
 }
