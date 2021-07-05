@@ -52,7 +52,7 @@ public struct PaymentIntent: StripeModel {
     /// Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     public var metadata: [String: String]?
     /// If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source.
-    public var StripePaymentIntentNextAction: String?
+//    public var StripePaymentIntentNextAction: String?
     /// The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents Connect usage guide for details.
     public var onBehalfOn: String?
     /// ID of the payment method used in this PaymentIntent.
@@ -106,7 +106,7 @@ public struct PaymentIntent: StripeModel {
         case lastPaymentError = "last_payment_error"
         case livemode
         case metadata
-        case StripePaymentIntentNextAction = "next_action"
+//        case StripePaymentIntentNextAction = "next_action"
         case onBehalfOn = "on_behalf_of"
         case paymentMethod = "payment_method"
         case paymentMethodTypes = "payment_method_types"
