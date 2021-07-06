@@ -166,6 +166,7 @@ public enum StripeErrorCode: String, StripeModel {
     case transfersNotAllowed = "transfers_not_allowed"
     case upstreamOrderCreationFailed = "upstream_order_creation_failed"
     case urlInvalid = "url_invalid"
+    case paymentIntentAuthenticationFailure = "payment_intent_authentication_failure"
 }
 
 // https://stripe.com/docs/api#errors-decline-code
